@@ -1,9 +1,48 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Source Code Pro', monospace;
     line-height: 1.6;
-    color: #333;
-    max-width: 800px;
-    margin: 0 auto;
+    color: #00ff00;
+    background-color: #0a0a0a;
+    margin: 0;
+    padding: 0;
+}
+
+.terminal {
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+.terminal-header {
+    background-color: #333;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.terminal-button {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.terminal-button:nth-child(1) {
+    background-color: #ff5f56;
+}
+
+.terminal-button:nth-child(2) {
+    background-color: #ffbd2e;
+}
+
+.terminal-button:nth-child(3) {
+    background-color: #27c93f;
+}
+
+.terminal-content {
     padding: 20px;
 }
 
@@ -12,56 +51,72 @@ header {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
+    border-bottom: 1px solid #00ff00;
+    padding-bottom: 20px;
 }
 
 h1 {
-    font-size: 2.5em;
+    font-size: 2em;
     margin: 0;
+    text-shadow: 0 0 5px #00ff00;
 }
 
 button {
-    background-color: #1a8917;
-    color: white;
-    border: none;
+    background-color: #333;
+    color: #00ff00;
+    border: 1px solid #00ff00;
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
+    font-family: 'Source Code Pro', monospace;
 }
 
 button:hover {
-    background-color: #0f6e0c;
+    background-color: #00ff00;
+    color: #000;
 }
 
 #postForm {
     margin-bottom: 40px;
+    border: 1px solid #00ff00;
+    padding: 20px;
+    border-radius: 5px;
 }
 
 #blogPostForm input,
 #blogPostForm #editor {
     width: 100%;
     margin-bottom: 20px;
-}
-
-#blogPostForm input {
+    background-color: #333;
+    color: #00ff00;
+    border: 1px solid #00ff00;
     padding: 10px;
     font-size: 1em;
+    font-family: 'Source Code Pro', monospace;
 }
 
 .post {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #00ff00;
     padding-bottom: 20px;
     margin-bottom: 20px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .post h2 {
     font-size: 1.8em;
     margin-bottom: 10px;
+    color: #00ffff;
 }
 
 .post .author {
     font-style: italic;
-    color: #666;
+    color: #888;
 }
 
 .post .content {
@@ -69,28 +124,53 @@ button:hover {
 }
 
 .post .timestamp {
-    color: #999;
+    color: #888;
     font-size: 0.9em;
 }
 
 .ql-editor {
     min-height: 200px;
+    background-color: #333;
+    color: #00ff00;
+}
+
+.ql-toolbar {
+    background-color: #444;
+    border-color: #00ff00 !important;
+}
+
+.ql-toolbar button,
+.ql-toolbar .ql-picker {
+    filter: invert(100%) hue-rotate(180deg) brightness(1.5);
 }
 
 .editBtn {
-    background-color: #4a4a4a;
+    background-color: #444;
     margin-top: 10px;
 }
 
 .editBtn:hover {
-    background-color: #333;
+    background-color: #00ff00;
+    color: #000;
 }
 
 #cancelBtn {
-    background-color: #d9534f;
+    background-color: #800000;
     margin-left: 10px;
 }
 
 #cancelBtn:hover {
-    background-color: #c9302c;
+    background-color: #ff0000;
+    color: #000;
+}
+
+/* Blinking cursor effect */
+h1::after,
+h2::after {
+    content: '_';
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
 }

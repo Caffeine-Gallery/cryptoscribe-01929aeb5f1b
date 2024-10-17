@@ -5,7 +5,24 @@ let currentPostId = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   quill = new Quill('#editor', {
-    theme: 'snow'
+    theme: 'snow',
+    modules: {
+      toolbar: [
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote', 'code-block'],
+        [{ 'header': 1 }, { 'header': 2 }],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'direction': 'rtl' }],
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+        ['clean']
+      ]
+    }
   });
 
   const newPostBtn = document.getElementById('newPostBtn');
@@ -47,10 +64,10 @@ async function loadPosts() {
     const postElement = document.createElement('article');
     postElement.className = 'post';
     postElement.innerHTML = `
-      <h2>${post.title}</h2>
-      <p class="author">By ${post.author}</p>
+      <h2>&gt; ${post.title}</h2>
+      <p class="author">By: ${post.author}</p>
       <div class="content">${post.body}</div>
-      <p class="timestamp">${new Date(Number(post.timestamp) / 1000000).toLocaleString()}</p>
+      <p class="timestamp">Timestamp: ${new Date(Number(post.timestamp) / 1000000).toLocaleString()}</p>
       <button class="editBtn" data-id="${post.id}">Edit</button>
     `;
     postsContainer.appendChild(postElement);
@@ -69,7 +86,7 @@ function editPost(post) {
 }
 
 function showForm(title) {
-  document.getElementById('formTitle').textContent = title;
+  document.getElementById('formTitle').textContent = `> ${title}_`;
   document.getElementById('postForm').style.display = 'block';
   document.getElementById('blogPostForm').reset();
   quill.setContents([]);
