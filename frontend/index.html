@@ -16,13 +16,15 @@
     <main>
         <section id="posts"></section>
 
-        <section id="newPostForm" style="display: none;">
-            <h2>Create New Post</h2>
-            <form id="postForm">
+        <section id="postForm" style="display: none;">
+            <h2 id="formTitle">Create New Post</h2>
+            <form id="blogPostForm">
+                <input type="hidden" id="postId">
                 <input type="text" id="title" placeholder="Title" required>
                 <input type="text" id="author" placeholder="Author" required>
                 <div id="editor"></div>
-                <button type="submit">Submit</button>
+                <button type="submit" id="submitBtn">Submit</button>
+                <button type="button" id="cancelBtn">Cancel</button>
             </form>
         </section>
     </main>

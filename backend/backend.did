@@ -9,4 +9,5 @@ type Post =
 service : {
   createPost: (text, text, text) -> (nat);
   getPosts: () -> (vec Post) query;
+  updatePost: (nat, text, text, text) -> (bool);
 }

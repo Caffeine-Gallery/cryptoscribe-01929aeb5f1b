@@ -1,3 +1,4 @@
+import Bool "mo:base/Bool";
 import Int "mo:base/Int";
 import Nat "mo:base/Nat";
 import Text "mo:base/Text";
@@ -33,5 +34,28 @@ actor {
 
   public query func getPosts() : async [Post] {
     List.toArray(List.reverse(posts))
+  };
+
+  public func updatePost(id: Nat, title: Text, body: Text, author: Text) : async Bool {
+    let updatedPosts = List.map<Post, Post>(posts, func (post) {
+      if (post.id == id) {
+        {
+          id = post.id;
+          title = title;
+          body = body;
+          author = author;
+          timestamp = Time.now();
+        }
+      } else {
+        post
+      }
+    });
+    
+    if (List.size(updatedPosts) == List.size(posts)) {
+      posts := updatedPosts;
+      true
+    } else {
+      false
+    }
   };
 }

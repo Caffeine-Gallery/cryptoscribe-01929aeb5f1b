@@ -1,6 +1,7 @@
 import { backend } from 'declarations/backend';
 
 let quill;
+let currentPostId = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   quill = new Quill('#editor', {
@@ -8,25 +9,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   const newPostBtn = document.getElementById('newPostBtn');
-  const newPostForm = document.getElementById('newPostForm');
   const postForm = document.getElementById('postForm');
+  const blogPostForm = document.getElementById('blogPostForm');
+  const cancelBtn = document.getElementById('cancelBtn');
 
   newPostBtn.addEventListener('click', () => {
-    newPostForm.style.display = 'block';
+    showForm('Create New Post');
   });
 
-  postForm.addEventListener('submit', async (e) => {
+  blogPostForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const body = quill.root.innerHTML;
 
-    await backend.createPost(title, body, author);
-    newPostForm.style.display = 'none';
-    postForm.reset();
-    quill.setContents([]);
+    if (currentPostId === null) {
+      await backend.createPost(title, body, author);
+    } else {
+      await backend.updatePost(currentPostId, title, body, author);
+    }
+
+    hideForm();
     await loadPosts();
   });
+
+  cancelBtn.addEventListener('click', hideForm);
 
   await loadPosts();
 });
@@ -44,7 +51,34 @@ async function loadPosts() {
       <p class="author">By ${post.author}</p>
       <div class="content">${post.body}</div>
       <p class="timestamp">${new Date(Number(post.timestamp) / 1000000).toLocaleString()}</p>
+      <button class="editBtn" data-id="${post.id}">Edit</button>
     `;
     postsContainer.appendChild(postElement);
+
+    const editBtn = postElement.querySelector('.editBtn');
+    editBtn.addEventListener('click', () => editPost(post));
   });
+}
+
+function editPost(post) {
+  showForm('Edit Post');
+  currentPostId = post.id;
+  document.getElementById('title').value = post.title;
+  document.getElementById('author').value = post.author;
+  quill.root.innerHTML = post.body;
+}
+
+function showForm(title) {
+  document.getElementById('formTitle').textContent = title;
+  document.getElementById('postForm').style.display = 'block';
+  document.getElementById('blogPostForm').reset();
+  quill.setContents([]);
+  currentPostId = null;
+}
+
+function hideForm() {
+  document.getElementById('postForm').style.display = 'none';
+  document.getElementById('blogPostForm').reset();
+  quill.setContents([]);
+  currentPostId = null;
 }

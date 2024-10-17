@@ -33,17 +33,17 @@ button:hover {
     background-color: #0f6e0c;
 }
 
-#newPostForm {
+#postForm {
     margin-bottom: 40px;
 }
 
-#postForm input,
-#postForm #editor {
+#blogPostForm input,
+#blogPostForm #editor {
     width: 100%;
     margin-bottom: 20px;
 }
 
-#postForm input {
+#blogPostForm input {
     padding: 10px;
     font-size: 1em;
 }
@@ -75,4 +75,22 @@ button:hover {
 
 .ql-editor {
     min-height: 200px;
+}
+
+.editBtn {
+    background-color: #4a4a4a;
+    margin-top: 10px;
+}
+
+.editBtn:hover {
+    background-color: #333;
+}
+
+#cancelBtn {
+    background-color: #d9534f;
+    margin-left: 10px;
+}
+
+#cancelBtn:hover {
+    background-color: #c9302c;
 }

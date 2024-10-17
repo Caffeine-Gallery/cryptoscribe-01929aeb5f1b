@@ -12,6 +12,7 @@ export interface Post {
 export interface _SERVICE {
   'createPost' : ActorMethod<[string, string, string], bigint>,
   'getPosts' : ActorMethod<[], Array<Post>>,
+  'updatePost' : ActorMethod<[bigint, string, string, string], boolean>,
 }
 export declare const idlFactory: IDL.InterfaceFactory;
 export declare const init: (args: { IDL: typeof IDL }) => IDL.Type[];
